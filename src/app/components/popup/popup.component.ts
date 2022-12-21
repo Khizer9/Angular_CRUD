@@ -9,13 +9,14 @@ import { CityApiService } from 'src/app/services/city-api.service';
   styleUrls: ['./popup.component.css'],
 })
 export class PopupComponent implements OnInit {
+  submitted: boolean = false;
   constructor(
     public cityApi: CityApiService,
     public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public dataObj: any
   ) {}
   type = this.fb.group({
-    cityID: [0],
+    CityID: [0],
     province_StateID: ['', Validators.required],
     name: ['', Validators.required],
     shortDesc: [''],
@@ -30,12 +31,18 @@ export class PopupComponent implements OnInit {
   }
 
   addCityData() {
-    if (this.dataObj.isEdit) {
-      this.cityApi.updateCities(this.type.value,this.type.controls.cityID.value as number);
+    this.submitted = true;
+    if(this.type.invalid){
+      return;
+    } else{
+  if (this.dataObj.isEdit) {
+      this.cityApi.updateCities(this.type.value,this.type.controls.CityID.value as number);
     }
     else{
       this.cityApi.addCities(this.type.value);
     }
+    }
+  
   }
   updateData() {
     this.type.patchValue(this.dataObj.selectedCity);

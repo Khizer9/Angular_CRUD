@@ -18,6 +18,10 @@ import { PopupComponent } from './components/popup/popup.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import { NgxPaginationModule} from 'ngx-pagination';
+import { MatTableModule } from '@angular/material/table';
+import { AreapopupComponent } from './components/areapopup/areapopup.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +32,7 @@ import { MatSelectModule } from '@angular/material/select';
     SubAreaComponent,
     FilterPipe,
     PopupComponent,
+    AreapopupComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,9 +47,12 @@ import { MatSelectModule } from '@angular/material/select';
     MatDialogModule,
     MatInputModule,
     MatSelectModule,
+    MatPaginatorModule,
+    NgxPaginationModule,
+    MatTableModule
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [PopupComponent],
+  entryComponents: [PopupComponent, AreapopupComponent],
 })
 export class AppModule {}

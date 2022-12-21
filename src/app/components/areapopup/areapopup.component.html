@@ -1,0 +1,40 @@
+<p>areapopup works!</p>
+<form [formGroup]="areaForm">
+  <mat-form-field appearance="fill">
+    <mat-label>Select City</mat-label>
+    <mat-select formControlName="cityID">
+      <mat-option *ngFor="let city of areaApi.city" [value]="city.cityID">
+        {{ city.name }}
+      </mat-option>
+    </mat-select>
+  </mat-form-field>
+  <div *ngIf="submitted && this.areaForm.controls.cityID.invalid">This Field is Required</div>
+  <!-- <input type="text" formControlName="CityID" placeholder="City" /> -->
+  <br />
+
+  <div class="row g-3 align-items-center">
+    <div class="col-auto">
+      <input type="text" formControlName="name" placeholder="Area*" />
+    </div>
+    <div *ngIf="submitted && this.areaForm.controls.name.invalid">This Field is Required</div>
+  </div>
+  <br />
+
+  <div class="row g-3 align-items-center">
+    <div class="col-auto">
+      <input type="text" formControlName="shortDesc" placeholder="Short Desc" />
+    </div>
+  </div>
+  <br />
+
+  <div class="row g-3 align-items-center">
+    <div class="col-auto">
+      <input type="checkbox" formControlName="active" /> Active
+    </div>
+  </div>
+  <br />
+
+  <button type="submit" (click)="areaData()" class="btn btn-primary">
+    Submit
+  </button>
+</form>

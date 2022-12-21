@@ -9,12 +9,14 @@ export class CityApiService {
   cities: City[] = [];
   localProvince: any;
   reponse: any;
+  citiesCopy: any;
   constructor(private http: HttpClient) {}
 
   getCities() {
     this.http.get('http://localhost:5000/api/v2.0/city').subscribe(
       (data) => {
         this.cities = data as City[];
+        this.citiesCopy = this.cities
         console.log(this.cities);
       },
       (error) => {
@@ -46,7 +48,7 @@ export class CityApiService {
     this.http
       .put('http://localhost:5000/api/v2.0/city/' + cityId, data)
       .subscribe((result: any) => {
-        alert('Saved');
+        alert('Updated');
         this.getCities();
         console.log(result);
       });
@@ -56,7 +58,7 @@ export class CityApiService {
     this.http
       .delete('http://localhost:5000/api/v2.0/city/' + cityId)
       .subscribe((result: any) => {
-        alert('Saved');
+        alert('Deleted');
         this.getCities();
         console.log(result);
       });

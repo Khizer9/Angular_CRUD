@@ -1,20 +1,22 @@
-<form class="d-flex" role="search">
-    <input
-      class="form-control me-2"
-      type="search"
-    
-      placeholder="Search"
-      aria-label="Search"
-    />
-    <button class="btn btn-outline-success" type="submit">Search</button>
-  </form>
+<form [formGroup]="searchForm" class="d-flex" role="search">
+  <input
+    class="form-control me-2"
+    type="search"
+    formControlName="search"
+    placeholder="Search"
+    aria-label="Search"
+  />
+  <button class="btn btn-outline-success" type="submit">Search</button>
+</form>
 
+<button class="btn btn-primary mt-3" (click)="addNewCity(null, false)">
+  Add City
+</button>
 
-
-  <button class="btn btn-primary mt-3" (click)="addNewCity(null , false)">Add City</button>
-
-<div class="container my-5 row-100 justify-content-center text-align-center table table-bordered">
-<table class="table" border="2">
+<div
+  class="container my-5 row-100 justify-content-center text-align-center table table-bordered"
+>
+  <table class="table" border="2">
     <tr>
       <th>City ID</th>
       <th>Province ID</th>
@@ -23,27 +25,57 @@
       <th>Active</th>
       <th>Edit</th>
       <th>Delete</th>
-      
     </tr>
     <tr *ngFor="let city of cityApi.cities">
-        <td>{{city.cityID}}</td>
-        <td>{{city.province_StateID}}</td>
-        <td>{{city.name}}</td>
-        <td>{{city.shortDesc}}</td>
-        <td>{{city.active}}</td>
-        <td class="text-center">
-            <a id="flavour_id_btn_editflavour" 
-                class="btn btn-link btn-warning btn-just-icon edit"
-                (click)="addNewCity(city, true)"><i
-                    class="material-icons">edit</i></a>
-        </td>
-        <td class="text-center">
-          <a id="flavour_id_btn_editflavour" 
-              class="btn btn-link btn-warning btn-just-icon edit"
-              (click)="this.cityApi.deleteCities(city.cityID)"><i
-                  class="material-icons">delete</i></a>
+      <td>{{ city.cityID }}</td>
+      <td>{{ city.province_StateID }}</td>
+      <td>{{ city.name }}</td>
+      <td>{{ city.shortDesc }}</td>
+      <td>{{ city.active }}</td>
+
+      <td class="text-center">
+        <a
+          id="flavour_id_btn_editflavour"
+          class="btn btn-link btn-warning btn-just-icon edit"
+          (click)="addNewCity(city, true)"
+          ><i class="material-icons">edit</i></a
+        >
+      </td>
+      <td class="text-center">
+        <a
+          id="flavour_id_btn_editflavour"
+          class="btn btn-link btn-warning btn-just-icon edit"
+          (click)="this.cityApi.deleteCities(city.cityID)"
+          ><i class="material-icons">delete</i></a
+        >
       </td>
     </tr>
-</table>
+  </table>
 </div>
 
+<div class="row">
+  <div class="col md-12 d-flex justify-content-center">
+    <div class="form-inline float-left mr-1">
+      <select
+        class="form-control"
+        [value]="cityPerPage"
+        (change)="changePerSize($event)"
+      >
+        <option value="5">5 Per Page</option>
+        <option value="10">10 Per Page</option>
+        <option value="15">15 Per Page</option>
+        <option value="20">20 Per Page</option>
+      </select>
+    </div>
+
+    <div class="btn-group float-right">
+      <button
+        class="btn btn-outline-primary"
+        *ngFor="let page of pageNumbers"
+        (click)="changePage(page)" [class.active]="page == selectedPage"
+      >
+        {{page}}
+      </button>
+    </div>
+  </div>
+</div>

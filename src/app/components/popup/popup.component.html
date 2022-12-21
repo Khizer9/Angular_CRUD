@@ -1,22 +1,38 @@
 <p>popup works!</p>
 
-<form #addCity="ngForm" [formGroup]="type" >
-  <input type="text"  formControlName="name" placeholder="Enter City Name" />
+<form [formGroup]="type">
+  <input type="text" formControlName="name" placeholder="Enter City Name*" />
+  <div *ngIf="submitted && this.type.controls.name.invalid">
+    This Field is Required
+  </div>
   <br />
-  <input type="text"  formControlName="shortDesc" placeholder="Enter Short Desc" />
+  <br />
+  <input
+    type="text"
+    formControlName="shortDesc"
+    placeholder="Enter Short Desc"
+  />
+  <br />
   <br />
   <div>
     <mat-form-field appearance="fill">
-      <mat-label >State ID</mat-label>
+      <mat-label>State ID</mat-label>
       <mat-select formControlName="province_StateID">
-        <mat-option *ngFor="let province of cityApi.localProvince" [value]="province.province_StateID">
-          {{province.name}}
+        <mat-option
+          *ngFor="let province of cityApi.localProvince"
+          [value]="province.province_StateID"
+        >
+          {{ province.name }}
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <div *ngIf="submitted && this.type.controls.province_StateID.invalid">
+      This Field is Required
+    </div>
   </div>
   <!-- <input type="text" ngModel formControlName="province_StateID" placeholder="StateID" /> -->
   <br />
-  <input type="checkbox"  formControlName="active" />Active<br/>
-  <button (click)="addCityData()">Done</button>
+  <br />
+  <input type="checkbox" formControlName="active" />Active<br />
+  <button (click)="addCityData()">Save</button>
 </form>
