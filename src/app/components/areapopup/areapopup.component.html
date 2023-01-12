@@ -1,4 +1,4 @@
-<p>areapopup works!</p>
+<h2>{{areaObj.isEdit ? "Edit Area" : "Add Area"}}</h2>
 <form [formGroup]="areaForm">
   <mat-form-field appearance="fill">
     <mat-label>Select City</mat-label>
@@ -8,7 +8,7 @@
       </mat-option>
     </mat-select>
   </mat-form-field>
-  <div *ngIf="submitted && this.areaForm.controls.cityID.invalid">This Field is Required</div>
+  <!-- <div *ngIf="submitted && this.areaForm.controls.cityID.invalid">This Field is Required</div> -->
   <!-- <input type="text" formControlName="CityID" placeholder="City" /> -->
   <br />
 
@@ -34,7 +34,7 @@
   </div>
   <br />
 
-  <button type="submit" (click)="areaData()" class="btn btn-primary">
+  <button type="submit" (click)="saveData()" class="btn btn-primary">
     Submit
   </button>
 </form>

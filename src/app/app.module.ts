@@ -12,7 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { FilterPipe } from './pipes/filter.pipe';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { Ng2SearchPipeModule } from 'ng2-search-filter';
+import { Ng2SearchPipeModule } from 'ng2-search-filter';    
 import { MatDialogModule } from '@angular/material/dialog';
 import { PopupComponent } from './components/popup/popup.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';

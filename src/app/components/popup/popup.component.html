@@ -1,4 +1,4 @@
-<p>popup works!</p>
+<h3>{{dataObj.isEdit ? "Edit City" : "Add City"}}</h3>
 
 <form [formGroup]="type">
   <input type="text" formControlName="name" placeholder="Enter City Name*" />
@@ -33,6 +33,6 @@
   <!-- <input type="text" ngModel formControlName="province_StateID" placeholder="StateID" /> -->
   <br />
   <br />
-  <input type="checkbox" formControlName="active" />Active<br />
-  <button (click)="addCityData()">Save</button>
+  <input type="checkbox" formControlName="active" />Active<br /> <br>
+  <button class="btn btn-primary" (click)="addCityData()">Submit</button>
 </form>

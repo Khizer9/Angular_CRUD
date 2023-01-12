@@ -26,6 +26,7 @@ export class AreapopupComponent implements OnInit {
   });
 
   ngOnInit(): void {
+    this.areaApi.areasArray;
     if (this.areaObj.isEdit) {
       this.updateData();
       this.areaForm.controls.cityID.setValue(this.areaObj.selectedArea.cityID);
@@ -34,18 +35,40 @@ export class AreapopupComponent implements OnInit {
     }
   }
 
-  areaData() {
-    this.submitted = true;
-    if (this.areaForm.invalid) {
-      return;
-    } else {
-      if (this.areaObj.isEdit) {
-        this.areaApi.updateAreas(
-          this.areaForm.value,
-          this.areaForm.controls.AreaID.value as any
-        );
-      } else this.areaApi.addAreas(this.areaForm.value);
-    }
+  initForm(){
+    this.areaForm = this.fb.group({
+      AreaID: [0],
+      cityID: ['', Validators.required],
+      name: ['', Validators.required],
+      shortDesc: [''],
+      active: [false],
+    });
+  }
+
+  saveData() {
+    this.areaApi.areasArray.push({
+      areaID: this.areaApi.areasArray.length + 1,
+      name: this.areaForm.controls.name.value,
+      shortDesc: this.areaForm.controls.shortDesc.value,
+      active: this.areaForm.controls.active.value,
+      cityID: this.areaForm.controls.cityID.value,
+    });
+    console.log(this.areaApi.areasArray);
+    this.initForm()
+    // this.areaApi.areasArray:  areaDataArray
+
+    // this.areaApi.getData();
+    // console.log(this.areaApi.getData());
+    // this.submitted = true;
+    // if (this.areaForm.invalid) {
+    //   return;
+    // } else {
+    // if (this.areaObj.isEdit) {
+    //   // this.areaApi.updateAreas(
+    //   //   this.areaForm.value,
+    //   //   this.areaForm.controls.AreaID.value as any
+    //   // );
+    // } else this.areaApi.addAreas(this.areaForm.value);
   }
 
   updateData() {

@@ -9,9 +9,10 @@ import { AreapopupComponent } from '../areapopup/areapopup.component';
   styleUrls: ['./area.component.css'],
 })
 export class AreaComponent {
-  productPerPage: any;
+  productPerPage: any=5;
   public selectedPages = 1;
   products: any;
+  
 
   constructor(public areaApi: AreaApiService, public dialogRef: MatDialog) {}
   // firstPage: any;
@@ -20,11 +21,12 @@ export class AreaComponent {
   // totalPages: any;
 
   ngOnInit() {
-    this.areaApi.getAllAreas();
+    this.areaApi.areasArray
+    // this.areaApi.getAllAreas();
     this.areaApi.getCity();
 
     let pageIndex = (this.selectedPages - 1) * this.productPerPage;
-    this.products = this.areaApi.areas.slice(pageIndex, this.productPerPage);
+    // this.products = this.areaApi.areasArray.slice(pageIndex, this.productPerPage);
   }
 
   addNewArea(areaObj: any, isEdit: boolean) {
@@ -38,6 +40,14 @@ export class AreaComponent {
     });
   }
 
+returnCityID(cityId:number){
+return cityId
+}
+
+  returnName(cityID: number){
+  return this.areaApi.city.find((x:any) => x.cityID == cityID)?.name
+
+  }
   // page(data: any){
   //   this.firstPage = this.currentPage -4;
   //   this.lastPage = this.currentPage +4;
@@ -67,9 +77,10 @@ export class AreaComponent {
   }
 
   get pageNumbers() { 
-    return Array(Math.ceil(this.areaApi.areasCopy.length / this.productPerPage))
+      return Array(Math.ceil(this.areaApi.areasCopy.length / this.productPerPage))
       .fill(0)
       .map((x, i) => i + 1);
+  
   }
   changePage(page: any) {
     this.selectedPages = page;
@@ -77,11 +88,10 @@ export class AreaComponent {
   }
 
   slicedProducts() {
-    debugger
     let pageIndex = (this.selectedPages - 1) * this.productPerPage;
     let endIndex =
       (this.selectedPages - 1) * this.productPerPage + this.productPerPage;
     this.products = [];
-    this.areaApi.areas = this.areaApi.areasCopy.slice(pageIndex, endIndex);
+    // this.areaApi.areasArray = this.areaApi.areasCopy.slice(pageIndex, endIndex);
   }
 }

@@ -17,9 +17,10 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./city.component.css'],
 })
 export class CityComponent {
+  searchText!: string;
   // @ViewChild('paginator') paginator: MatPaginator;
   cityPerPage: number = 4;
-  cities: any;
+  // cities: any;
   selectedPage: any = 1;
   products: any;
   constructor(public cityApi: CityApiService, private dialogRef: MatDialog) {
@@ -47,7 +48,7 @@ export class CityComponent {
     this.cityApi.getCities();
 
     let pageIndex = (this.selectedPage - 1) * this.cityPerPage;
-    this.products = this.cityApi.citiesCopy.slice(pageIndex, this.cityPerPage)
+    // this.products = this.cityApi.citiesCopy.slice(pageIndex, this.cityPerPage);
     // this.totalLength = this.cities.length;
   }
 
@@ -74,19 +75,19 @@ export class CityComponent {
   // }
   get pageNumbers() {
     return Array(Math.ceil(this.cityApi.citiesCopy.length / this.cityPerPage))
-    
       .fill(0)
       .map((x, i) => i + 1);
   }
 
-  changePage(page: any){
+  changePage(page: any) {
     this.selectedPage = page;
     this.slicedCity();
   }
 
-  slicedCity(){
+  slicedCity() {
     let pageIndex = (this.selectedPage - 1) * this.cityPerPage;
-    let endIndex = (this.selectedPage - 1) * this.cityPerPage + this.cityPerPage;
+    let endIndex =
+      (this.selectedPage - 1) * this.cityPerPage + this.cityPerPage;
     this.products = [];
     this.cityApi.cities = this.cityApi.citiesCopy.slice(pageIndex, endIndex);
   }
@@ -96,6 +97,14 @@ export class CityComponent {
     this.cityPerPage = Number(newSize);
     this.changePage(1);
   }
+
+  // searchValue() {
+  //   this.cityApi.cities = this.cityApi.citiesCopy.filter(x => 
+  //       x.name.indexOf(this.searchText) ||
+  //       x.name.indexOf(this.cityApi.cities == this.cityApi.cities) 
+  //       // x.name.indexOf(this.cities.shortDesc == this.cities.shortDesc)
+  //   );
+  // }
 }
 
 export class City {
