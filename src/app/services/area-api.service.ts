@@ -1,10 +1,12 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AreaApiService {
+  deleteAreaObj = new Subject<number>()
   // areas: any[]=[];
   areasCopy: any[]=[];
   response: any;
@@ -14,10 +16,11 @@ export class AreaApiService {
 
   constructor(private http: HttpClient) {
   }
- getData(){
 
- }
-
+  deleteArea(areaID: any){
+    this.deleteAreaObj.next(areaID)
+  }
+ 
   // getAllAreas() {
   //   this.http.get('http://localhost:5000/api/v2.0/area').subscribe((data) => {
   //     this.areas = data;

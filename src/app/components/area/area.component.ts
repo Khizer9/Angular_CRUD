@@ -21,13 +21,34 @@ export class AreaComponent {
   // totalPages: any;
 
   ngOnInit() {
-    this.areaApi.areasArray
+    this.areaApi.deleteAreaObj.subscribe((areaID)=> {
+      this.deleteArea(areaID);
+    })
+    if(this.areaApi.areasArray.length > 0){
+      this.areaApi.areasArray = []; 
+  }else{
+    this.areaApi.areasArray = JSON.parse(localStorage.getItem('area') as any)
+    
+  }
+
     // this.areaApi.getAllAreas();
     this.areaApi.getCity();
 
     let pageIndex = (this.selectedPages - 1) * this.productPerPage;
     // this.products = this.areaApi.areasArray.slice(pageIndex, this.productPerPage);
   }
+
+  deleteArea(areaID: any) {
+      const index = this.areaApi.areasArray.findIndex(area => area.areaID === areaID);
+      if(index !== -1) {
+        this.areaApi.areasArray.splice(index, 1);
+        localStorage.removeItem(areaID);
+        console.log(this.areaApi.areasArray);
+      } else {
+        console.log("Area not found");
+      }
+    }
+  
 
   addNewArea(areaObj: any, isEdit: boolean) {
     this.dialogRef.open(AreapopupComponent, {
@@ -39,10 +60,23 @@ export class AreaComponent {
       },
     });
   }
+    // deleteArea(AreaID) {
+    //   if(this.areaApi.areasArray) {
+    //     // Find the index of the area to delete
+    //     const index = this.areaApi.areasArray.findIndex(area => area.areaID === areaID);
+    //     if(index !== -1) {
+    //       // Use the splice() method to remove the element from the array
+    //       this.areaApi.areasArray.splice(index, 1);
+    //       console.log(this.areaApi.areasArray);
+    //     } else {
+    //       console.log("Area not found");
+    //     }
+    //   } else {
+    //     console.log("Area not found");
+    //   }
+    // }
+  
 
-returnCityID(cityId:number){
-return cityId
-}
 
   returnName(cityID: number){
   return this.areaApi.city.find((x:any) => x.cityID == cityID)?.name

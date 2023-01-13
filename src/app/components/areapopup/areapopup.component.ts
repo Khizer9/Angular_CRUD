@@ -1,4 +1,4 @@
-import { Component, Inject } from '@angular/core';
+import { Component, EventEmitter, Inject, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AreaApiService } from 'src/app/services/area-api.service';
@@ -11,6 +11,7 @@ import { OnInit } from '@angular/core';
 })
 export class AreapopupComponent implements OnInit {
   submitted: boolean = false;
+  // onDelete: any;
   constructor(
     public areaApi: AreaApiService,
     public fb: FormBuilder,
@@ -18,7 +19,7 @@ export class AreapopupComponent implements OnInit {
   ) {}
 
   areaForm = this.fb.group({
-    AreaID: [0],
+    areaID: [0],
     cityID: ['', Validators.required],
     name: ['', Validators.required],
     shortDesc: [''],
@@ -26,7 +27,6 @@ export class AreapopupComponent implements OnInit {
   });
 
   ngOnInit(): void {
-    this.areaApi.areasArray;
     if (this.areaObj.isEdit) {
       this.updateData();
       this.areaForm.controls.cityID.setValue(this.areaObj.selectedArea.cityID);
@@ -35,9 +35,9 @@ export class AreapopupComponent implements OnInit {
     }
   }
 
-  initForm(){
+  initForm() {
     this.areaForm = this.fb.group({
-      AreaID: [0],
+      areaID: [0],
       cityID: ['', Validators.required],
       name: ['', Validators.required],
       shortDesc: [''],
@@ -46,16 +46,38 @@ export class AreapopupComponent implements OnInit {
   }
 
   saveData() {
-    this.areaApi.areasArray.push({
-      areaID: this.areaApi.areasArray.length + 1,
-      name: this.areaForm.controls.name.value,
-      shortDesc: this.areaForm.controls.shortDesc.value,
-      active: this.areaForm.controls.active.value,
-      cityID: this.areaForm.controls.cityID.value,
-    });
-    console.log(this.areaApi.areasArray);
-    this.initForm()
-    // this.areaApi.areasArray:  areaDataArray
+    debugger;
+    if (!this.areaObj.isEdit) {
+      this.areaApi.areasArray.push({
+        areaID: this.areaApi.areasArray.length + 1,
+        name: this.areaForm.controls.name.value,
+        shortDesc: this.areaForm.controls.shortDesc.value,
+        active: this.areaForm.controls.active.value,
+        cityID: this.areaForm.controls.cityID.value,
+      });
+      console.log(this.areaApi.areasArray);
+    } else {
+      const index = this.areaApi.areasArray.findIndex(
+        (area) => area.areaID == this.areaForm.controls.areaID.value
+      );
+      if (index !== -1) {
+        this.areaApi.areasArray[index] = {
+          areaID: this.areaForm.controls.areaID.value,
+          name: this.areaForm.controls.name.value,
+          shortDesc: this.areaForm.controls.shortDesc.value,
+          active: this.areaForm.controls.active.value,
+          cityID: this.areaForm.controls.cityID.value,
+        };
+        console.log(this.areaApi.areasArray[index]);
+        console.log(this.areaApi.areasArray);
+      } else {
+        console.log('Area not found');
+      }
+    }
+
+    this.initForm();
+    localStorage.setItem('area', JSON.stringify(this.areaApi.areasArray));
+    console.log(localStorage);
 
     // this.areaApi.getData();
     // console.log(this.areaApi.getData());
@@ -69,6 +91,10 @@ export class AreapopupComponent implements OnInit {
     //   //   this.areaForm.controls.AreaID.value as any
     //   // );
     // } else this.areaApi.addAreas(this.areaForm.value);
+  }
+
+  deleteArea() {
+    this.areaApi.deleteArea(this.areaForm.controls.areaID.value);
   }
 
   updateData() {
