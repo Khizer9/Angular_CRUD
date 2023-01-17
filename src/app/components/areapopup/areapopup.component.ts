@@ -57,18 +57,18 @@ export class AreapopupComponent implements OnInit {
       });
       console.log(this.areaApi.areasArray);
     } else {
-      const index = this.areaApi.areasArray.findIndex(
-        (area) => area.areaID == this.areaForm.controls.areaID.value
-      );
-      if (index !== -1) {
-        this.areaApi.areasArray[index] = {
+      // const index = this.areaApi.areasArray.findIndex(
+      //   (area) => area.areaID == this.areaForm.controls.areaID.value
+      // );
+      if (this.areaObj.index >= 0) {
+        this.areaApi.areasArray[this.areaObj.index] = {
           areaID: this.areaForm.controls.areaID.value,
           name: this.areaForm.controls.name.value,
           shortDesc: this.areaForm.controls.shortDesc.value,
           active: this.areaForm.controls.active.value,
           cityID: this.areaForm.controls.cityID.value,
         };
-        console.log(this.areaApi.areasArray[index]);
+        console.log(this.areaApi.areasArray[this.areaObj.index]);
         console.log(this.areaApi.areasArray);
       } else {
         console.log('Area not found');

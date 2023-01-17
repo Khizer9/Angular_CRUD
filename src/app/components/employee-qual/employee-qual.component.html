@@ -1,0 +1,66 @@
+<h2>Add Qualification</h2>
+<form [formGroup]="type">
+<!-- <mat-form-field class="example-full-width">
+    <mat-select placeholder="Select Active"
+        formControlName="qual">
+        <div>
+            <mat-option value="-1"> Matric </mat-option>
+            <mat-option value="true"> Inter </mat-option>
+            <mat-option value="false"> Bachelor
+            </mat-option>
+        </div>
+    </mat-select>
+</mat-form-field> -->
+<div style="text-align: center; width: 50%; justify-content: center;">
+
+<select class="dropdown btn btn-secondary btn-sm dropdown-toggle input-group mb-3 width:50%" formControlName="qual">
+    <option *ngFor="let qual of employeeService.employeesQualification" [value]="qual.qual">{{qual.qual}}</option>
+</select>
+<br/><br/>
+
+
+<select class="dropdown btn btn-secondary btn-sm dropdown-toggle input-group mb-3 width:50%" formControlName="year">
+    <option *ngFor="let year of years" [value]="year">{{year}}</option>
+</select>
+<br/>
+<select class="dropdown btn btn-secondary btn-sm dropdown-toggle input-group mb-3 width:50%" formControlName="institute">
+    <option *ngFor="let inst of employeeService.employeesQualification" [value]="inst.institute">{{inst.institute}}</option>
+</select>
+<br/>
+<button type="submit" (click)="addQual()" class="btn btn-primary">
+    Submit
+  </button>
+</div>
+</form>
+
+<div
+  class="container my-5 row-100 justify-content-center text-align-center table table-bordered"
+>
+  <table class="table" border="2">
+    <tr>
+      <th>Qualification</th>
+      <th>Year</th>
+      <th>Institute</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+
+    <tr *ngFor="let qual of this.employeeService.employeesArray[this.qualObj.index].QualArray let i = index">
+        <td>{{ qual.qual }}</td>
+        <td>{{qual.year}}</td>
+        <td>{{ qual.institute }}</td>
+
+        <td class="text-center">
+            <a
+              class="btn btn-link btn-warning btn-just-icon edit"
+                (click)="editQual(i)"
+              ><i class="material-icons">edit</i></a
+            >
+          </td>
+          <td class="text-center">
+            <a
+              class="btn btn-link btn-warning btn-just-icon edit"
+              (click)="deleteQual(i)"
+              ><i class="material-icons">delete</i></a
+            >
+          </td>

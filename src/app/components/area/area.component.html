@@ -1,4 +1,4 @@
-<button (click)="addNewArea(null, false)" class="btn btn-primary mt-3">
+<button (click)="addNewArea(null, false,0)" class="btn btn-primary mt-3">
   Add Areas
 </button>
 <div
@@ -15,7 +15,7 @@
       <th>Delete</th>
     </tr>
 
-    <tr *ngFor="let area of areaApi.areasArray">
+    <tr *ngFor="let area of areaApi.areasArray;let i = index">
       <td>{{ area.areaID }}</td>
       <td>{{ returnName(area.cityID) }}</td>
       <td>{{ area.name }}</td>
@@ -26,7 +26,7 @@
         <a
           id="flavour_id_btn_editflavour"
           class="btn btn-link btn-warning btn-just-icon edit"
-          (click)="addNewArea(area, true)"
+          (click)="addNewArea(area, true , i)"
           ><i class="material-icons">edit</i></a
         >
       </td>
@@ -34,7 +34,7 @@
         <a
           id="flavour_id_btn_editflavour"
           class="btn btn-link btn-warning btn-just-icon edit"
-          (click)="deleteArea(area.areaID)"
+          (click)="deleteArea(area.areaID, i)"
           ><i class="material-icons">delete</i></a
         >
       </td>

@@ -21,9 +21,9 @@ export class AreaComponent {
   // totalPages: any;
 
   ngOnInit() {
-    this.areaApi.deleteAreaObj.subscribe((areaID)=> {
-      this.deleteArea(areaID);
-    })
+    // this.areaApi.deleteAreaObj.subscribe((areaID)=> {
+    //   this.deleteArea(areaID);
+    // })
     if(this.areaApi.areasArray.length > 0){
       this.areaApi.areasArray = []; 
   }else{
@@ -38,9 +38,9 @@ export class AreaComponent {
     // this.products = this.areaApi.areasArray.slice(pageIndex, this.productPerPage);
   }
 
-  deleteArea(areaID: any) {
-      const index = this.areaApi.areasArray.findIndex(area => area.areaID === areaID);
-      if(index !== -1) {
+  deleteArea(areaID: any , index:number) {
+      // const index = this.areaApi.areasArray.findIndex(area => area.areaID === areaID);
+      if(index >=0) {
         this.areaApi.areasArray.splice(index, 1);
         localStorage.removeItem(areaID);
         console.log(this.areaApi.areasArray);
@@ -50,13 +50,14 @@ export class AreaComponent {
     }
   
 
-  addNewArea(areaObj: any, isEdit: boolean) {
+  addNewArea(areaObj: any, isEdit: boolean,index:number) {
     this.dialogRef.open(AreapopupComponent, {
       height: '400px',
       width: '400px',
       data: {
         selectedArea: areaObj,
         isEdit: isEdit,
+        index:index
       },
     });
   }

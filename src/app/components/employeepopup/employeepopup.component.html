@@ -1,0 +1,40 @@
+<h2 class="mx-sm-3 mb-3">{{this.employeeObj.isEdit?'Edit Employees' : 'Add Employees'}}</h2>
+
+<form [formGroup]="type">
+
+    <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <input class="mx-sm-3 mb-2" type="text" formControlName="name" placeholder="Name*" />
+        </div>
+        <div *ngIf="this.submitted  && this.type.controls.name.invalid">Name is Required</div>
+      </div>
+      <br />
+    
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <input class="mx-sm-3 mb-2" type="text" formControlName="cnic" placeholder="CNIC #" />  
+        </div>
+        <div *ngIf="this.submitted  && this.type.controls.cnic.invalid">Cnic is Required</div>
+      </div>
+      <br />
+    
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <input class="mx-sm-3 mb-2" type="text" formControlName="contact" placeholder="Contact #" />
+        </div>
+        <div *ngIf="submitted && this.type.controls.contact.invalid">Contact is Required</div>
+      </div>
+      <br />
+
+      <div class="row g-3 align-items-center">
+        <div class="col-auto">
+          <input class="mx-sm-3 mb-2" type="text" formControlName="address" placeholder="Current Address" />
+        </div>
+        <div *ngIf="this.submitted && this.type.controls.address.invalid">Address is Required</div>
+      </div>
+      <br />
+    
+      <button type="submit" (click)="saveData()" class="btn btn-primary mx-sm-3 mb-2">
+        {{this.employeeObj.isEdit?'Edit' : 'Add'}}
+      </button>
+</form>

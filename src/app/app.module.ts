@@ -7,7 +7,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
 import { CityComponent } from './components/city/city.component';
 import { AreaComponent } from './components/area/area.component';
-import { SubAreaComponent } from './components/sub-area/sub-area.component';
 import { HttpClientModule } from '@angular/common/http';
 import { FilterPipe } from './pipes/filter.pipe';
 import { RouterModule } from '@angular/router';
@@ -22,6 +21,9 @@ import {MatPaginatorModule} from '@angular/material/paginator';
 import { NgxPaginationModule} from 'ngx-pagination';
 import { MatTableModule } from '@angular/material/table';
 import { AreapopupComponent } from './components/areapopup/areapopup.component';
+import { EmployeesComponent } from './components/employees/employees.component';
+import { EmployeepopupComponent } from './components/employeepopup/employeepopup.component';
+import { EmployeeQualComponent } from './components/employee-qual/employee-qual.component';
 
 @NgModule({
   declarations: [
@@ -29,10 +31,12 @@ import { AreapopupComponent } from './components/areapopup/areapopup.component';
     HeaderComponent,
     CityComponent,
     AreaComponent,
-    SubAreaComponent,
     FilterPipe,
     PopupComponent,
     AreapopupComponent,
+    EmployeesComponent,
+    EmployeepopupComponent,
+    EmployeeQualComponent,
   ],
   imports: [
     BrowserModule,

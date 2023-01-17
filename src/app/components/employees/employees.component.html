@@ -1,0 +1,61 @@
+<form [formGroup]="type" class="d-flex" role="search">
+    <input
+      class="form-control me-2"
+      type="search"
+      (keyup)="filterData()"
+      formControlName="search"
+      placeholder="Search"
+      aria-label="Search"
+    />
+    <button class="btn btn-outline-success" type="submit">Search</button>
+  </form>
+
+  <button class="btn btn-primary mt-3" (click)="addNewEmployee(null, false, 0)">
+    Add Employees
+  </button>
+
+  <div
+  class="container my-5 row-100 justify-content-center text-align-center table table-bordered"
+>
+  <table class="table" border="2">
+    <tr>
+      <th>Employee ID</th>
+      <th>Name</th>
+      <th>CNIC #</th>
+      <th>Contact #</th>
+      <th>Address</th>
+      <th>Edit</th>
+      <th>Delete</th>
+      <th>Employee Qualification</th>
+    </tr>
+
+    <tr *ngFor="let emp of employeesService.employeesArray;let i = index">
+        <td>{{ emp.empID }}</td>
+        <td>{{emp.name}}</td>
+        <td>{{ emp.cnic }}</td>
+        <td>{{ emp.contact }}</td>
+        <td>{{ emp.address }}</td>
+
+        <td class="text-center">
+            <a
+              class="btn btn-link btn-warning btn-just-icon edit"
+              (click)="addNewEmployee(emp, true, i)"
+              ><i class="material-icons">edit</i></a
+            >
+          </td>
+          <td class="text-center">
+            <a
+              class="btn btn-link btn-warning btn-just-icon edit"
+              (click)="deleteEmployee(emp.empID, i)"
+              ><i class="material-icons">delete</i></a
+            >
+          </td>
+          <td class="text-center">
+            <a
+              class="btn btn-link btn-warning btn-just-icon edit"
+              (click)="addQualification(emp,i)"
+              ><i class="material-icons">add</i></a
+            >
+          </td>
+        </tr>
+      </table>
