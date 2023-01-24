@@ -37,11 +37,12 @@ export class EmployeepopupComponent {
     });
   }
   saveData() {
-    this.submitted = true;
+    // this.submitted = true;
     if (this.type.invalid) {
       return
     } else {
       if (!this.employeeObj.isEdit) {
+        this.employeeService.employeesArray = this.employeeService.employeesArray || [];
         this.employeeService.employeesArray.push({
           empID: this.employeeService.employeesArray.length + 1,
           name: this.type.controls.name.value,

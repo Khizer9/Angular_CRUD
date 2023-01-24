@@ -24,6 +24,7 @@ import { AreapopupComponent } from './components/areapopup/areapopup.component';
 import { EmployeesComponent } from './components/employees/employees.component';
 import { EmployeepopupComponent } from './components/employeepopup/employeepopup.component';
 import { EmployeeQualComponent } from './components/employee-qual/employee-qual.component';
+import { AddCertificateComponent } from './components/add-certificate/add-certificate.component';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,8 @@ import { EmployeeQualComponent } from './components/employee-qual/employee-qual.
     EmployeesComponent,
     EmployeepopupComponent,
     EmployeeQualComponent,
+    AddCertificateComponent,
+    
   ],
   imports: [
     BrowserModule,
@@ -57,6 +60,6 @@ import { EmployeeQualComponent } from './components/employee-qual/employee-qual.
   ],
   providers: [],
   bootstrap: [AppComponent],
-  entryComponents: [PopupComponent, AreapopupComponent],
+  entryComponents: [PopupComponent, AreapopupComponent,AddCertificateComponent],
 })
 export class AppModule {}

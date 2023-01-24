@@ -1,0 +1,56 @@
+<h1>Add Certificate</h1>
+<form [formGroup]="type">
+  <input
+    type="text"
+    formControlName="certName"
+    placeholder="Certificate Name"
+  />
+  <br /><br />
+
+  <input type="text" formControlName="speciality" placeholder="Speciality" />
+  <br /><br />
+
+  <input type="text" formControlName="institute" placeholder="Institute" />
+  <br /><br />
+
+  <button type="submit" (click)="addCert()" class="btn btn-primary">
+    Submit
+  </button>
+</form>
+
+<div
+  class="container my-5 row-100 justify-content-center text-align-center table table-bordered"
+>
+  <table class="table" border="2">
+    <tr>
+      <th>Certificate Name</th>
+      <th>Speciality</th>
+      <th>Institute</th>
+      <th>Edit</th>
+      <th>Delete</th>
+    </tr>
+
+    <tr
+      *ngFor="
+        let cert of this.employeeService.employeesArray[this.certObj.index].QualArray[this.certObj.index].CertArray; let i = index">
+
+      <td>{{ cert.certName }}</td>
+      <td>{{ cert.speciality }}</td>
+      <td>{{ cert.institute }}</td>
+
+      <td class="text-center">
+        <a class="btn btn-link btn-warning btn-just-icon edit"
+        (click)="editCert(i)"
+          ><i class="material-icons">edit</i></a
+        >
+      </td>
+
+      <td class="text-center">
+        <a class="btn btn-link btn-warning btn-just-icon edit"
+        (click)="delCert(i)"
+          ><i class="material-icons">delete</i></a
+        >
+      </td>
+    </tr>
+  </table>
+</div>

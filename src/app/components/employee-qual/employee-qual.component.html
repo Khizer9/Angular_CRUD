@@ -43,9 +43,10 @@
       <th>Institute</th>
       <th>Edit</th>
       <th>Delete</th>
+      <th>Add Certificate</th>
     </tr>
 
-    <tr *ngFor="let qual of this.employeeService.employeesArray[this.qualObj.index].QualArray let i = index">
+    <tr *ngFor="let qual of this.employeeService.employeesArray[this.qualObj.index].QualArray; let i = index">
         <td>{{ qual.qual }}</td>
         <td>{{qual.year}}</td>
         <td>{{ qual.institute }}</td>
@@ -62,5 +63,13 @@
               class="btn btn-link btn-warning btn-just-icon edit"
               (click)="deleteQual(i)"
               ><i class="material-icons">delete</i></a
+            >
+          </td>
+
+           <td class="text-center">
+            <a
+              class="btn btn-link btn-warning btn-just-icon edit"
+              (click)="addCertificate(qual, i)"
+              ><i class="material-icons">add</i></a
             >
           </td>
