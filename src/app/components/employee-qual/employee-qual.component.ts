@@ -1,4 +1,4 @@
-import { Component, Inject, OnInit } from '@angular/core';
+import { Component, EventEmitter, Inject, OnInit, Output } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { EmployeesService } from 'src/app/services/employees.service';
@@ -10,10 +10,12 @@ import { AddCertificateComponent } from '../add-certificate/add-certificate.comp
   styleUrls: ['./employee-qual.component.css'],
 })
 export class EmployeeQualComponent implements OnInit {
+  @Output() lengthChange = new EventEmitter<number>();
   years: any = [];
   QualArray: any=[];
   qualIndex: number = 0;
   isEdit: boolean = false;
+  length: any;
   // qualification: any;
 
   constructor(
@@ -21,14 +23,16 @@ export class EmployeeQualComponent implements OnInit {
     public fb: FormBuilder,
     @Inject(MAT_DIALOG_DATA) public qualObj: any,
     public dialogRef: MatDialog
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
+    debugger
     const currentYear = new Date().getFullYear();
     for (let i = currentYear - 10; i <= currentYear + 10; i++) {
       this.years.push(i);
     }
-  }
+  } 
   type = this.fb.group({
     qual: [''],
     year: [''],
@@ -114,4 +118,10 @@ export class EmployeeQualComponent implements OnInit {
       },
     });
   }
+
+//   certCount(index: number) {
+//     debugger
+// this.length =  this.employeeService.employeesArray[this.qualObj.index].QualArray[this.qualObj.index].CertArray.length
+// console.log(this.length);
+//   }
 }

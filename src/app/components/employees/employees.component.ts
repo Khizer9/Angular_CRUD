@@ -11,30 +11,25 @@ import { EmployeepopupComponent } from '../employeepopup/employeepopup.component
   styleUrls: ['./employees.component.css'],
 })
 export class EmployeesComponent implements OnInit {
+  QualLeng: any;
+  length: number = 0;
   constructor(
     public employeesService: EmployeesService,
     public fb: FormBuilder,
-    public dialogRef: MatDialog
-  ) {}
+    public dialogRef: MatDialog,
+  ) { }
 
   type = this.fb.group({
-    search: [''],
+    filter: [''],
+    select: ['']
   });
 
   ngOnInit() {
     // debugger
-    // if (this.employeesService.employeesArray.length > 0) {
-    //   this.employeesService.employeesArray = [];
-    // } else {
-    //   this.employeesService.employeesArray = JSON.parse(
-    //     localStorage.getItem('employee') as any
-    //   );
-    //   console.log(localStorage)
-    // }
-
     this.employeesService.employeesArray = JSON.parse(
       localStorage.getItem('employee') as any
     );
+    this.employeesService.employeesArrayCopy= this.employeesService.employeesArray
     console.log(this.employeesService.employeesArray)
   }
 
@@ -70,14 +65,24 @@ export class EmployeesComponent implements OnInit {
     });
   }
 
-  filterData() {
-    // debugger;
-    // const searchText = this.type.controls.search.value;
-    // this.employeesService.employeesArray =
-    //   this.employeesService.employeesArrayCopy.filter(
-    //     (x: any) =>
-    //       x.name.toLowerCase().indexOf(searchText.toLowerCase()) >= 0 ||
-    //       x.cnic.toLowerCase().indexOf(searchText.toLowerCase()) >= 0
-    //   );
+  onfilterChange() {
+    // debugger
+    var filterValue = this.type.controls.filter.value == null ? '' : this.type.controls.filter.value;
+    this.employeesService.employeesArrayCopy =
+      this.employeesService.employeesArray.filter(
+        (x: any) =>
+          (x.name !== null && x.name.toLowerCase().indexOf(filterValue.toLowerCase()) >= 0) ||
+          (x.name !== null && x.cnic.toLowerCase().indexOf(filterValue.toLowerCase()) >= 0)
+      );
   }
+
+//   countQual(index: number){
+//  debugger
+//  this.length=this.employeesService.employeesArray[index].QualArray.length
+//     console.log("Index COunt"+this.length)
+//   }
+
+// onLengthChange(length: number) {
+//   this.length = length;
+// }
 }

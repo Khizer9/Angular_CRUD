@@ -8,7 +8,7 @@ import {
 import { CityApiService } from 'src/app/services/city-api.service';
 import { MatDialog } from '@angular/material/dialog';
 import { PopupComponent } from '../popup/popup.component';
-import { FormControl, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 
 @Component({
@@ -17,39 +17,29 @@ import { MatTableDataSource } from '@angular/material/table';
   styleUrls: ['./city.component.css'],
 })
 export class CityComponent {
-  searchText!: string;
-  // @ViewChild('paginator') paginator: MatPaginator;
   cityPerPage: number = 4;
   // cities: any;
   selectedPage: any = 1;
   products: any;
-  constructor(public cityApi: CityApiService, private dialogRef: MatDialog) {
-    // this.searchForm
-    //   .get('search')
-    //   ?.valueChanges.subscribe(() => this.cityApi.cities);
-  }
+  constructor(
+    public cityApi: CityApiService,
+    private dialogRef: MatDialog,
+    public fb: FormBuilder
+  ) {}
+  searchForm = this.fb.group({
+    filter: [''],
+  });
 
   dataSource = new MatTableDataSource(this.cityApi.cities);
 
-  // pageStart: number = 1;
-  // pageEnd: number = 5
-  // itemPerPage = 5;
 
-  searchForm = new FormGroup({
-    search: new FormControl(''),
-  });
-
-  ngAfterViewInit() {
-    // this.dataSource.paginator = this.paginator;
-  }
+ 
 
   ngOnInit(): void {
     this.cityApi.getLocalProvince();
     this.cityApi.getCities();
 
     let pageIndex = (this.selectedPage - 1) * this.cityPerPage;
-    // this.products = this.cityApi.citiesCopy.slice(pageIndex, this.cityPerPage);
-    // this.totalLength = this.cities.length;
   }
 
   addNewCity(cityObj: any, isEdit: boolean) {
@@ -63,16 +53,6 @@ export class CityComponent {
     });
   }
 
-  // firstPage() {
-  //   this.cityApi.cities.splice(5);
-
-  // }
-
-  // nextPage() {
-  //   if (this.itemPerPage) {
-
-  //   }
-  // }
   get pageNumbers() {
     return Array(Math.ceil(this.cityApi.citiesCopy.length / this.cityPerPage))
       .fill(0)
@@ -98,13 +78,15 @@ export class CityComponent {
     this.changePage(1);
   }
 
-  // searchValue() {
-  //   this.cityApi.cities = this.cityApi.citiesCopy.filter(x => 
-  //       x.name.indexOf(this.searchText) ||
-  //       x.name.indexOf(this.cityApi.cities == this.cityApi.cities) 
-  //       // x.name.indexOf(this.cities.shortDesc == this.cities.shortDesc)
-  //   );
-  // }
+  filterCity() {
+    var searchText = this.searchForm.controls.filter.value == null ? '' : this.searchForm.controls.filter.value
+
+    this.cityApi.cities = this.cityApi.citiesCopy.filter(
+      (x: any) =>
+        (x.name.toLowerCase().indexOf(searchText.toLowerCase()) >= 0 ||
+        x.shortDesc.toLowerCase().indexOf(searchText.toLowerCase()) >= 0 )
+    );
+  }
 }
 
 export class City {

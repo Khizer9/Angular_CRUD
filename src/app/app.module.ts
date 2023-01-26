@@ -56,7 +56,7 @@ import { AddCertificateComponent } from './components/add-certificate/add-certif
     MatSelectModule,
     MatPaginatorModule,
     NgxPaginationModule,
-    MatTableModule
+    MatTableModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

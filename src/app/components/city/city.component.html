@@ -1,8 +1,9 @@
 <form [formGroup]="searchForm" class="d-flex" role="search">
-  <input
+  <input 
     class="form-control me-2"
     type="search"
-    [(ngModel)]="searchText"
+    (input)="filterCity()"
+    formControlName="filter"
     placeholder="Search"
     aria-label="Search"
   />

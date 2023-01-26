@@ -36,20 +36,23 @@
 <div
   class="container my-5 row-100 justify-content-center text-align-center table table-bordered"
 >
-  <table class="table" border="2">
+  <table  class="table" border="2">
     <tr>
       <th>Qualification</th>
       <th>Year</th>
       <th>Institute</th>
+      <th>Certificate Count</th>
       <th>Edit</th>
       <th>Delete</th>
       <th>Add Certificate</th>
+      
     </tr>
 
     <tr *ngFor="let qual of this.employeeService.employeesArray[this.qualObj.index].QualArray; let i = index">
         <td>{{ qual.qual }}</td>
         <td>{{qual.year}}</td>
         <td>{{ qual.institute }}</td>
+        <td>{{qual.CertArray ? qual.CertArray.length : 0}}</td>
 
         <td class="text-center">
             <a
